@@ -19,21 +19,35 @@ header h1 {
   padding-left: 0.3rem;
 }
 
-header > nav {
-  padding-bottom: 1em;
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--content-bg-color);
+  border-top: 0.05rem solid;
+  padding: 0.5rem 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+footer nav {
+  display: flex;
   gap: 0.5rem;
 }
 
-header > nav > button:disabled {
-  background: var(--main-bg-color);
+footer nav button {
+  min-width: 8em;
+  padding: 0.5rem;
+  background-color: var(--main-bg-color);
   color: var(--button-selected-text-color);
+  border: none;
+  border-radius: 0.3rem;
 }
 
-header > nav > button {
-  min-width: 8em;
+footer nav button:disabled {
+  background-color: var(--button-selected-text-color);
+  color: var(--main-bg-color);
 }
 
 .hide-nav {
@@ -48,7 +62,8 @@ body {
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  padding-bottom: 4rem; /* Add padding to prevent content from being covered by the footer */
 }
 
 .screen section {
@@ -106,7 +121,6 @@ h1 {
   }
 }
 
-
 .hiit-card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -127,7 +141,8 @@ h1 {
   margin-top: 1rem; /* Add some top margin */
 }
 
-#createHiitPopup, #addWorkoutPopup {
+#createHiitPopup,
+#addWorkoutPopup {
   position: fixed;
   top: 0;
   left: 0;
@@ -136,4 +151,9 @@ h1 {
   color: white;
   padding: 10px;
   text-align: center;
+}
+
+ul {
+  list-style-type: none; /* Remove bullet points */
+  padding-left: 0; /* Remove left padding */
 }

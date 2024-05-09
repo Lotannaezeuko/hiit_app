@@ -110,26 +110,15 @@ function renderHIITs(hiits) {
     });
 
     hiitsContainer.appendChild(hiitCard);
-    addEditDeleteButtons(hiitCard, hiit.id, hiit.name);
+    addDeleteButtons(hiitCard, hiit.id, hiit.name);
   });
 }
 
-async function addEditDeleteButtons(hiitCard, hiitId, hiitName) {
+async function addDeleteButtons(hiitCard, hiitId, hiitName) {
   // Check if the HIIT is customisable
   const isCustomisable = await isCustomisableHIIT(hiitId);
 
   if (isCustomisable) {
-    // Create edit button
-    const editButton = document.createElement('button');
-    editButton.textContent = 'Edit';
-    editButton.classList.add('edit-btn');
-    editButton.addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent card click event
-      // Implement edit logic here, e.g., open a modal for editing
-      console.log('Edit HIIT:', hiitId, hiitName);
-    });
-    hiitCard.appendChild(editButton);
-
     // Create delete button
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
@@ -203,20 +192,14 @@ function renderWorkouts(workouts, isCustomisable, hiitId, hiitName) {
 
     if (isCustomisable) {
       // Add edit and delete buttons for customisable HIITs
-      addWorkoutEditDeleteButtons(workoutItem, hiitId, workout.id, hiitName);
+      addWorkoutDeleteButtons(workoutItem, hiitId, workout.id, hiitName);
     }
 
     hiitDisplay.appendChild(workoutItem); // Append workout item directly to body
   });
 }
 
-function addWorkoutEditDeleteButtons(workoutItem, hiitId, workoutId, hiitName) {
-  // Create edit button
-  const editButton = document.createElement('button');
-  editButton.textContent = 'Edit';
-  editButton.classList.add('edit-btn');
-  workoutItem.appendChild(editButton);
-
+function addWorkoutDeleteButtons(workoutItem, hiitId, workoutId, hiitName) {
   // Create delete button
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
@@ -229,7 +212,7 @@ function addWorkoutEditDeleteButtons(workoutItem, hiitId, workoutId, hiitName) {
   });
 
   // Return the buttons
-  return [editButton, deleteButton];
+  return [deleteButton];
 }
 
 async function openHIIT(hiitId, hiitName) {
@@ -318,6 +301,9 @@ function startTimer(workouts) {
   const instructionDisplay = document.querySelector('#instructionDisplay');
   const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
 
+  const instructionsList = document.createElement('ul');
+  instructionDisplay.appendChild(instructionsList);
+
   // Create the Pause and Restart buttons
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('timer-buttons');
@@ -347,7 +333,7 @@ function startTimer(workouts) {
         currentExerciseIndex++;
         if (currentExerciseIndex < workouts.length) {
           // Display next workout instruction and name
-          instructionDisplay.textContent = workouts[currentExerciseIndex].description;
+          updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
           workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
           currentDuration = workouts[currentExerciseIndex].duration;
           startNextTimer(); // Start the next timer
@@ -362,6 +348,20 @@ function startTimer(workouts) {
     }
   }
 
+  function updateInstructions(instructions, instructionsList) {
+    // Clear the existing instructions
+    instructionsList.innerHTML = '';
+    // Split the instructions by the newline character '\n'
+    const instructionLines = instructions.split('\\n');
+    // Create a list item for each instruction line
+    instructionLines.forEach((line) => {
+      if (line.trim() !== '') {
+        const listItem = document.createElement('li');
+        listItem.textContent = line.trim(); // Use the instruction line without numbering
+        instructionsList.appendChild(listItem);
+      }
+    });
+  }
   // Function to start the timer
   function startNextTimer() {
     currentDuration = workouts[currentExerciseIndex].duration; // Reset duration for next workout
@@ -380,7 +380,7 @@ function startTimer(workouts) {
     clearInterval(timerInterval);
     currentExerciseIndex = 0;
     currentDuration = workouts[currentExerciseIndex].duration;
-    instructionDisplay.textContent = workouts[currentExerciseIndex].description;
+    updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
     workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
     timerDisplay.textContent = '00:00';
     isPaused = false;
@@ -388,7 +388,7 @@ function startTimer(workouts) {
   });
 
   // Manually update the initial workout information and start the first timer
-  instructionDisplay.textContent = workouts[currentExerciseIndex].description;
+  updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
   workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
   startNextTimer(); // Start the initial timer
 }
@@ -533,24 +533,6 @@ function addEventListeners() {
 }
 
 // functions to handle the deleting, edting of a HIIT and workouts
-async function editWorkout(workoutId, updatedDuration) {
-  try {
-    const response = await fetch(`/workouts/${workoutId}`, {
-      method: 'PUT', // or 'PATCH' depending on your server implementation
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedDuration),
-    });
-    if (!response.ok) {
-      throw new Error('Failed to update workout');
-    }
-    console.log('Workout updated successfully');
-    // Optionally, perform additional actions after successful update
-  } catch (error) {
-    console.error('Error updating workout:', error);
-  }
-}
 
 async function deleteWorkoutInHiit(hiitId, workoutId) {
   try {
@@ -569,27 +551,6 @@ async function deleteWorkoutInHiit(hiitId, workoutId) {
     // Optionally, perform additional actions after successful deletion
   } catch (error) {
     console.error('Error deleting workout:', error);
-  }
-}
-
-async function editHIIT(hiitId, newName, newDescription) {
-  try {
-    const response = await fetch(`/hiit/${hiitId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name: newName, description: newDescription }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to edit HIIT');
-    }
-
-    // Optionally, handle success response
-    console.log('HIIT edited successfully');
-  } catch (error) {
-    console.error('Error editing HIIT:', error);
   }
 }
 

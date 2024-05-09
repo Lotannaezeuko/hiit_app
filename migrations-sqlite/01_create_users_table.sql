@@ -25,16 +25,17 @@ INSERT INTO HIIT (id, name, description, customisable) VALUES
 CREATE TABLE workouts (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
-    description TEXT
+    description TEXT,
+    instructions TEXT
 );
 
-INSERT INTO workouts (id, name, description) VALUES
-    ('1', 'Squats', 'Lower body exercise that targets the quadriceps, hamstrings, and glutes.'),
-    ('2', 'Push-ups', 'Upper body exercise that targets the chest, shoulders, and triceps.'),
-    ('3', 'Plank', 'Core exercise that strengthens the abdominal muscles and improves posture.'),
-    ('4', 'Jumping Jacks', 'Full-body exercise that increases heart rate and improves cardiovascular fitness.'),
-    ('5', 'Burpees', 'Full-body exercise that combines squats, push-ups, and jumps for a high-intensity workout.'),
-    ('6', 'Rest', 'Period of rest or lower-intensity exercise.');
+INSERT INTO workouts (id, name, description, instructions) VALUES
+    ('1', 'Squats', 'Lower body exercise that targets the quadriceps, hamstrings, and glutes.', '1. Stand with your feet shoulder-width apart.\n2. Lower your body as if you were sitting back into a chair, keeping your chest upright and your knees behind your toes.\n3. Push through your heels to return to the starting position.\n4. Repeat for the desired number of repetitions.'),
+    ('2', 'Push-ups', 'Upper body exercise that targets the chest, shoulders, and triceps.', '1. Start in a plank position with your hands slightly wider than shoulder-width apart.\n2. Lower your body until your chest nearly touches the floor, keeping your elbows close to your body.\n3. Push through your palms to return to the starting position.\n4. Repeat for the desired number of repetitions.'),
+    ('3', 'Plank', 'Core exercise that strengthens the abdominal muscles and improves posture.', '1. Start in a push-up position with your elbows bent and your weight resting on your forearms.\n2. Keep your body in a straight line from head to heels, engaging your core muscles.\n3. Hold this position for as long as possible, maintaining proper form.\n4. Repeat for the desired duration.'),
+    ('4', 'Jumping Jacks', 'Full-body exercise that increases heart rate and improves cardiovascular fitness.', '1. Stand with your feet together and your arms at your sides.\n2. Jump while simultaneously raising your arms above your head and spreading your legs.\n3. Land softly with your feet shoulder-width apart while lowering your arms to your sides.\n4. Repeat for the desired number of repetitions.'),
+    ('5', 'Burpees', 'Full-body exercise that combines squats, push-ups, and jumps for a high-intensity workout.', '1. Start in a standing position.\n2. Lower your body into a squat position, placing your hands on the floor in front of you.\n3. Jump your feet back into a plank position.\n4. Perform a push-up, then jump your feet back to the squat position.\n5. Explosively jump into the air, reaching your arms overhead.\n6. Land softly and immediately lower back into the squat position to begin the next repetition.'),
+    ('6', 'Rest', 'Period of rest or lower-intensity exercise.', 'Take a break and focus on controlled breathing to recover before the next exercise.');
 
 CREATE TABLE user_HIIT (
     user_id TEXT,

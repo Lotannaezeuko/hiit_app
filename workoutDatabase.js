@@ -73,7 +73,7 @@ export async function deleteWorkoutFromHIIT(hiitId, workoutId) {
 export async function getWorkoutsInHIIT(hiitId) {
   const db = await initDatabase();
   return db.all(`
-    SELECT w.id, w.name, w.description, hw.duration
+    SELECT w.id, w.name, w.description, w.instructions, hw.duration
     FROM hiit_workouts hw
     INNER JOIN workouts w ON hw.workout_id = w.id
     WHERE hw.hiit_id = ?

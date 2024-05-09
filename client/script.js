@@ -32,7 +32,7 @@ const templates = {};
 
 // Helper function to get handles on main UI elements
 function getHandles() {
-  ui.mainnav = document.querySelector('header > nav');
+  ui.footer = document.querySelector('footer > nav'); // Update this line
   ui.main = document.querySelector('main');
   // this will store references to each screen element once they are created
   ui.screens = {};
@@ -63,13 +63,16 @@ function buildScreens() {
 function setupNav() {
   ui.buttons = {};
   for (const page of pages) {
-    if (page.screen === 'error') { continue; }
+    // Skip creating buttons for "active-workout" and "hiit" screens
+    if (page.screen === 'error' || page.screen === 'active-workout' || page.screen === 'hiit') {
+      continue;
+    }
     const button = document.createElement('button');
     button.textContent = page.title;
     button.dataset.screen = page.screen;
     button.addEventListener('click', show);
     button.addEventListener('click', storeState);
-    ui.mainnav.append(button);
+    ui.footer.append(button);
     ui.buttons[page.screen] = button;
   }
 }
@@ -111,7 +114,15 @@ function enableAllButtons() {
 
 function show(event) {
   ui.previous = ui.current;
-  const screen = event?.target?.dataset?.screen ?? 'home';
+  let screen = event?.target?.dataset?.screen ?? 'home';
+
+  // Handle the cases where the screen name is "active-workout" or "hiit"
+  if (screen === 'active-workout' || screen === 'hiit') {
+    // Perform any necessary actions or transitions for these screens
+    // For example, you can navigate to a different screen or show a modal
+    screen = 'home'; // Change this to the desired screen or action
+  }
+
   showScreen(screen);
 }
 
