@@ -2,7 +2,6 @@
     <section id="createHiitPopup" class="hidden">
     <p id="createHiitPopupMessage"></p>
     </section>
-        <h1>Create HIIT</h1>
         <p>Create your own personalised HIIT</p>
             <label for="folderName">Name</label>
             <input type="text" id="folderName" name="folderName" required>

@@ -137,7 +137,10 @@ export function showScreen(name) {
   ui.current = name;
   document.title = `Utopia Fitness | ${name}`;
   if (name !== 'error') {
-    ui.buttons[name].disabled = 'disabled';
+    const button = ui.buttons[name];
+    if (button) {
+      button.disabled = 'disabled';
+    }
   }
 }
 

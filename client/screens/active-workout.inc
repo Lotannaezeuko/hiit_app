@@ -10,3 +10,6 @@
 
 <section id="instructionDisplay"> 
 </section>
+
+<section id= "nextWorkoutDisplay">
+</section>

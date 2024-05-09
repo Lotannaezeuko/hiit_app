@@ -89,7 +89,10 @@ function showHiitPopup(hiitName) {
 
 function renderHIITs(hiits) {
   const hiitsContainer = document.querySelector('#hiitsContainer');
+  const bookmarksContainer = document.querySelector('#bookmark');
+
   hiitsContainer.innerHTML = ''; // Clear existing content
+  bookmarksContainer.innerHTML = ''; // Clear existing content in the bookmarks container
 
   hiits.forEach(hiit => {
     const hiitCard = document.createElement('div');
@@ -109,8 +112,15 @@ function renderHIITs(hiits) {
       showScreen('hiit');
     });
 
-    hiitsContainer.appendChild(hiitCard);
-    addDeleteButtons(hiitCard, hiit.id, hiit.name);
+    // Check if the HIIT is customisable
+    if (hiit.customisable === 1) {
+      // If customisable, render in the bookmarks container
+      bookmarksContainer.appendChild(hiitCard);
+      addDeleteButtons(hiitCard, hiit.id, hiit.name);
+    } else {
+      // If not customisable, render in the home container
+      hiitsContainer.appendChild(hiitCard);
+    }
   });
 }
 
@@ -251,7 +261,10 @@ async function openHIIT(hiitId, hiitName) {
     }
 
     // Add event listener to the add to Hiit button for every HIIT
-    document.querySelector('.searchButton').addEventListener('click', () => searchWorkouts(hiitId, hiitName));
+    const searchButton = document.querySelector('.searchButton');
+    if (searchButton) {
+      searchButton.addEventListener('click', () => searchWorkouts(hiitId, hiitName));
+    }
   } catch (error) {
     console.error('Error fetching workouts:', error);
   }
@@ -300,6 +313,7 @@ function startTimer(workouts) {
   const timerButtonsDisplay = document.querySelector('#timerButtons');
   const instructionDisplay = document.querySelector('#instructionDisplay');
   const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
+  const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
 
   const instructionsList = document.createElement('ul');
   instructionDisplay.appendChild(instructionsList);
@@ -318,7 +332,11 @@ function startTimer(workouts) {
   restartButton.id = 'restartTimer';
   buttonContainer.appendChild(restartButton);
 
-  timerButtonsDisplay.append(buttonContainer); // Append the button container to the body
+  timerButtonsDisplay.append(buttonContainer);
+
+  // Update the next workout display and instructions initially
+  updateNextWorkoutDisplay(currentExerciseIndex, workouts, nextWorkoutDisplay);
+  updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
 
   // Function to update the timer display and handle workout progress
   function updateTimer() {
@@ -328,19 +346,21 @@ function startTimer(workouts) {
       timerDisplay.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
       if (currentDuration <= 0) {
-        clearInterval(timerInterval); // Clear the timer when workout finishes
-        timerDisplay.textContent = 'Workout finished!';
+        clearInterval(timerInterval);
+        timerDisplay.textContent = '00:00'; // Set the timer display to 00:00 when finished
         currentExerciseIndex++;
         if (currentExerciseIndex < workouts.length) {
-          // Display next workout instruction and name
-          updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
           workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
           currentDuration = workouts[currentExerciseIndex].duration;
-          startNextTimer(); // Start the next timer
+
+          updateNextWorkoutDisplay(currentExerciseIndex, workouts, nextWorkoutDisplay);
+          updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
+
+          startNextTimer();
         } else {
-          timerDisplay.textContent = 'All workouts finished!';
+          timerDisplay.textContent = '00:00'; // Set the timer display to 00:00 when all workouts are finished
           console.log('All workouts finished!');
-          buttonContainer.remove(); // Remove the button container when all workouts are finished
+          document.body.classList.add('workouts-finished'); // Add a class to the body when workouts are finished
         }
       }
 
@@ -348,25 +368,11 @@ function startTimer(workouts) {
     }
   }
 
-  function updateInstructions(instructions, instructionsList) {
-    // Clear the existing instructions
-    instructionsList.innerHTML = '';
-    // Split the instructions by the newline character '\n'
-    const instructionLines = instructions.split('\\n');
-    // Create a list item for each instruction line
-    instructionLines.forEach((line) => {
-      if (line.trim() !== '') {
-        const listItem = document.createElement('li');
-        listItem.textContent = line.trim(); // Use the instruction line without numbering
-        instructionsList.appendChild(listItem);
-      }
-    });
-  }
   // Function to start the timer
   function startNextTimer() {
-    currentDuration = workouts[currentExerciseIndex].duration; // Reset duration for next workout
-    timerInterval = setInterval(updateTimer, 1000); // Start the timer
-    isPaused = false; // Reset the pause flag
+    currentDuration = workouts[currentExerciseIndex].duration;
+    timerInterval = setInterval(updateTimer, 1000);
+    isPaused = false;
   }
 
   // Pause timer functionality
@@ -382,15 +388,47 @@ function startTimer(workouts) {
     currentDuration = workouts[currentExerciseIndex].duration;
     updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
     workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
-    timerDisplay.textContent = '00:00';
+    timerDisplay.textContent = '00:00'; // Set the timer display to 00:00 when restarting
     isPaused = false;
+    updateNextWorkoutDisplay(currentExerciseIndex, workouts, nextWorkoutDisplay);
     startNextTimer();
+    document.body.classList.remove('workouts-finished'); // Remove the class when restarting
   });
 
   // Manually update the initial workout information and start the first timer
-  updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
   workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
-  startNextTimer(); // Start the initial timer
+  startNextTimer();
+}
+
+// Helper function to update the next workout display
+function updateNextWorkoutDisplay(currentIndex, workouts, nextWorkoutDisplay) {
+  const nextWorkoutIndex = currentIndex + 1;
+
+  if (nextWorkoutIndex < workouts.length) {
+    nextWorkoutDisplay.textContent = `Next: ${workouts[nextWorkoutIndex].name}`;
+  } else if (currentIndex === 0) {
+    nextWorkoutDisplay.textContent = 'Get ready for your first workout!';
+  } else {
+    nextWorkoutDisplay.textContent = 'No workouts left!'; // Display '00:00' instead of 'All workouts completed!'
+  }
+}
+
+// Function to update the instructions list
+function updateInstructions(instructions, instructionsList) {
+  // Clear the existing instructions
+  instructionsList.innerHTML = '';
+
+  // Split the instructions by the newline character '\n'
+  const instructionLines = instructions.split('\\n');
+
+  // Create a list item for each instruction line
+  instructionLines.forEach((line) => {
+    if (line.trim() !== '') {
+      const listItem = document.createElement('li');
+      listItem.textContent = line.trim();
+      instructionsList.appendChild(listItem);
+    }
+  });
 }
 
 async function fetchWorkoutsInHIIT(hiitId) {
