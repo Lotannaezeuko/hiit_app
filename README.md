@@ -45,6 +45,30 @@ These are the basic steps that you have to follow to run the application.
 3. Click the link to go to the application
     https://localhost:8080
 
+## How To Use
+
+### Using Github
+  1. Clone the repository to your local machine.
+  2. Run `npm install` to install the necessary dependencies.
+  3. Run `npm run start` to start the app.
+  4. Open `http://localhost:8080` in your web browser.
+  5. Create a new HIIT in the create a HIIT page.
+  6. Start adding workouts.
+  7. Start your HIIT.
+
+#### Download Zip
+
+  1. Download the zip folder
+  2. Unzip the folder
+  3. Open the folder in your terminal
+  4. Run `npm install` to start the app.
+  5. Run `npm start` to start the app.
+  6. Open `http://localhost:8080` in your web browser.
+  7. Create a new HIIT in the create a HIIT page.
+  8. Start adding workouts.
+  9. Start your HIIT.
+
+
 
 ## Design and Usability
 
@@ -89,8 +113,7 @@ Change the styling of my app to used some shades of green.
 ### Modularisation
 For the modularisation of my code, i requested the chat bot to give an example module of how i can structure my code
 
->  Prompt that was sent to chat bot
-Give me the structure to modularise my code.
+> Give me the structure to modularise my code.
 
 ### Database Mock Data population 
 The prompt sent to the chat bot.
