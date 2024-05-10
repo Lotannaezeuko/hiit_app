@@ -79,6 +79,15 @@ These are the basic steps that you have to follow to run the application.
   9. Start your HIIT.
 
 
+## RESTful API Design and Backend Integration
+- To facilitate the posting and retrieval of HIITs, we've implemented a RESTful API on our backend, supported by an Express server for routing. Here's an overview of how it works:
+
+1. Express Server Setup: We've configured an Express server to handle incoming requests and route them to the appropriate endpoints.
+2. API Endpoints: Our API includes endpoints for posting and retrieving HIITs. For example:
+  - POST /hiits: Allows users to create and save custom HIITs by sending a POST request with the HIIT data.
+  - GET /hiits: Retrieves a list of HIITs stored in the database, allowing users to access their saved workouts.
+3. Backend Database Integration: We've integrated our Express server with a backend database (e.g., MongoDB) to store and retrieve HIIT data efficiently.
+4. Error Handling: Our API includes robust error handling to gracefully handle invalid requests, database errors, and other potential issues, providing informative error messages to users when necessary.
 
 ## Design and Usability
 
