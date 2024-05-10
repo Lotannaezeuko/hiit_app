@@ -1,4 +1,4 @@
-import { showScreen } from './script.js';
+import { showScreen } from './navScript.js';
 
 let workouts;
 
