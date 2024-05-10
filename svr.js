@@ -3,7 +3,7 @@ import * as url from 'url';
 import * as db from './workoutDatabase.js';
 
 const app = express();
-const port = 4999;
+const port = 8080;
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 /* handle calls to /app (as these are in app links, they need to be handled by index.html) */
@@ -118,5 +118,5 @@ app.post('/hiit/workouts', express.json(), postWorkoutToHIIT);
 app.delete('/hiit/:id', deleteHIIT);
 app.put('/hiit/:id', express.json(), editHIIT);
 app.delete('/hiit/:hiitId/workouts/:workoutId', express.json(), deleteWorkoutFromHIIT);
-app.listen(4999);
+app.listen(8080);
 console.log(`Listening on ${port}`);
