@@ -26,11 +26,11 @@ With a focus on simplicity and effectiveness, my goal is to provide users with t
 - On the home page, there is a recent HIITs section that shows users their six most recently performed HIITs.
 
 ### Visual cues
--vUsers can toggle the instructions and next workout from showing which makes the timer bigger. 
+- Users can toggle the instructions and next workout from showing which makes the timer bigger. 
 - Users screen colours change upon the transition of a workout so they can see it is time to do the next activity. 
 
 ### Persistent Workout Data Storage
--cUsers can access their custom workouts anywhere and anytime from any device with an internet connection. 
+- Users can access their custom workouts anywhere and anytime from any device with an internet connection. 
 
 ## Installation
 These are the basic steps that you have to follow to run the application.
@@ -141,4 +141,4 @@ The prompt sent to the chat bot.
 For the one page design - Matt Dennis (simple-one-page) https://github.com/portsoc/simple-one-page
 
 ChatGPT
-OpenAI. (2023). GPT-4 Technical Report. ArXiv:2303.08774 [Cs]. https://arxiv.org/abs/2303.08774
+OpenAI. (2024). GPT-4 Technical Report. ArXiv:2303.08774 [Cs]. https://arxiv.org/abs/2303.08774
