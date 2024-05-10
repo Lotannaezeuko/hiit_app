@@ -307,6 +307,9 @@ let timerInterval; // Define timerInterval outside of the function
 let isPaused = false; // Add a flag to track if the timer is paused
 
 function startTimer(workouts) {
+  // Clear existing elements and reset timer
+  clearTimer();
+
   let currentExerciseIndex = 0;
   let currentDuration = workouts[currentExerciseIndex].duration;
   const timerDisplay = document.querySelector('#timerDisplay');
@@ -383,7 +386,7 @@ function startTimer(workouts) {
 
   // Restart timer functionality
   restartButton.addEventListener('click', () => {
-    clearInterval(timerInterval);
+    clearTimer();
     currentExerciseIndex = 0;
     currentDuration = workouts[currentExerciseIndex].duration;
     updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
@@ -398,6 +401,23 @@ function startTimer(workouts) {
   // Manually update the initial workout information and start the first timer
   workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
   startNextTimer();
+}
+
+// Helper function to clear existing timer elements and reset timer
+function clearTimer() {
+  clearInterval(timerInterval);
+  const timerDisplay = document.querySelector('#timerDisplay');
+  const timerButtonsDisplay = document.querySelector('#timerButtons');
+  const instructionDisplay = document.querySelector('#instructionDisplay');
+  const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
+  const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
+
+  timerDisplay.textContent = '00:00';
+  timerButtonsDisplay.innerHTML = '';
+  instructionDisplay.innerHTML = '';
+  workoutNameDisplay.textContent = '';
+  nextWorkoutDisplay.textContent = '';
+  isPaused = false;
 }
 
 // Helper function to update the next workout display
