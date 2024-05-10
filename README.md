@@ -120,6 +120,8 @@ The aim is to offer an enjoyable and efficient experience for creating and manag
 
 - We also frequently update our servers with new HIITs and workouts to choose from and explore.
 
+- A bug where users toggle the information off in the active-workouts screen and then restart their workout, appears. This does allow users to see their instructions for the remaining duration of the HIIT. This would need to be fixed.
+
 ## AI
 
 ### CSS Styling

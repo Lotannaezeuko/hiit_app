@@ -312,28 +312,11 @@ function startTimer(workouts) {
   let currentExerciseIndex = 0;
   let currentDuration = workouts[currentExerciseIndex].duration;
   const timerDisplay = document.querySelector('#timerDisplay');
-  const timerButtonsDisplay = document.querySelector('#timerButtons');
   const instructionDisplay = document.querySelector('#instructionDisplay');
   const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
   const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
   const instructionsList = document.createElement('ul');
   instructionDisplay.append(instructionsList);
-
-  // Create the Pause and Restart buttons
-  const buttonContainer = document.createElement('div');
-  buttonContainer.classList.add('timer-buttons');
-
-  const pauseButton = document.createElement('button');
-  pauseButton.textContent = 'Pause';
-  pauseButton.id = 'pauseTimer';
-  buttonContainer.append(pauseButton);
-
-  const restartButton = document.createElement('button');
-  restartButton.textContent = 'Restart';
-  restartButton.id = 'restartTimer';
-  buttonContainer.append(restartButton);
-
-  timerButtonsDisplay.append(buttonContainer);
 
   // Update the next workout display and instructions initially
   updateNextWorkoutDisplay(currentExerciseIndex, workouts, nextWorkoutDisplay);
@@ -376,6 +359,29 @@ function startTimer(workouts) {
     isPaused = false;
   }
 
+  // Create the button container and buttons
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('timer-buttons');
+
+  const pauseButton = document.createElement('button');
+  pauseButton.textContent = 'Pause';
+  pauseButton.id = 'pauseTimer';
+  buttonContainer.append(pauseButton);
+
+  const restartButton = document.createElement('button');
+  restartButton.textContent = 'Restart';
+  restartButton.id = 'restartTimer';
+  buttonContainer.append(restartButton);
+
+  const toggleInfoButton = document.createElement('button');
+  toggleInfoButton.textContent = 'Toggle Information';
+  toggleInfoButton.id = 'toggleInformation';
+  buttonContainer.append(toggleInfoButton);
+
+  const timerButtonsDisplay = document.querySelector('#timerButtons');
+  timerButtonsDisplay.innerHTML = ''; // Clear existing buttons
+  timerButtonsDisplay.append(buttonContainer);
+
   // Pause timer functionality
   pauseButton.addEventListener('click', () => {
     isPaused = !isPaused;
@@ -387,31 +393,32 @@ function startTimer(workouts) {
     clearTimer();
     currentExerciseIndex = 0;
     currentDuration = workouts[currentExerciseIndex].duration;
-    updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList);
     workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
     timerDisplay.textContent = '00:00'; // Set the timer display to 00:00 when restarting
     isPaused = false;
     updateNextWorkoutDisplay(currentExerciseIndex, workouts, nextWorkoutDisplay);
+    updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList); // Update instructions
     startNextTimer();
     document.body.classList.remove('workouts-finished'); // Remove the class when restarting
   });
 
+  toggleInfoButton.addEventListener('click', toggleInformation);
+
   // Manually update the initial workout information and start the first timer
   workoutNameDisplay.textContent = workouts[currentExerciseIndex].name;
   startNextTimer();
+  updateInstructions(workouts[currentExerciseIndex].instructions, instructionsList); // Update instructions
 }
 
 // Helper function to clear existing timer elements and reset timer
 function clearTimer() {
   clearInterval(timerInterval);
   const timerDisplay = document.querySelector('#timerDisplay');
-  const timerButtonsDisplay = document.querySelector('#timerButtons');
   const instructionDisplay = document.querySelector('#instructionDisplay');
   const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
   const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
 
   timerDisplay.textContent = '00:00';
-  timerButtonsDisplay.innerHTML = '';
   instructionDisplay.innerHTML = '';
   workoutNameDisplay.textContent = '';
   nextWorkoutDisplay.textContent = '';
@@ -447,6 +454,23 @@ function updateInstructions(instructions, instructionsList) {
       instructionsList.append(listItem);
     }
   });
+}
+
+function toggleInformation() {
+  const instructionDisplay = document.querySelector('#instructionDisplay');
+  const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
+  const timerDisplay = document.querySelector('#timerDisplay');
+
+  instructionDisplay.classList.toggle('hidden');
+  nextWorkoutDisplay.classList.toggle('hidden');
+
+  if (instructionDisplay.classList.contains('hidden')) {
+    timerDisplay.style.fontSize = '16rem'; // Increase the font size when information is hidden
+    timerDisplay.style.marginTop = '0'; // Move the timer to the center
+  } else {
+    timerDisplay.style.fontSize = '12rem'; // Reset the font size when information is shown
+    timerDisplay.style.marginTop = '2rem'; // Reset the margin-top when information is shown
+  }
 }
 
 async function fetchWorkoutsInHIIT(hiitId) {
