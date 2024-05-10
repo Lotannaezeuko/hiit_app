@@ -7,39 +7,106 @@ My dedication to user-centric design ensures that every feature serves a purpose
 With a focus on simplicity and effectiveness, my goal is to provide users with the tools they need to achieve their fitness goals with confidence and convenience.
 
 ## Key features
-REMOVE ME: Introduce the key features, paying special attention to the non-code ones.  Tell us briefly how to find & use them, and describes the reasons behind the design decisions you made in their implementation.  
 
-### Key Feature Name/Description.
-Words words words.  Words words words.
+### Creating custom HIITs
+- Our app empowers users to craft personalized HIITs effortlessly. 
+- Simply head to the "Create HIIT" page, name your session, and add a brief description. 
+- Search for a wide range of workouts, set a duration and add it to your HIIT.
+- Repeat this till you are done with customising your HIIT.
+- Start your HIIT!
 
-### Key Another Feature Name/Description.
-Words words.  Words words words.
+### Starting your workouts
+- Click on the start HIIT button.
+- Users are taken to the active-workout page.
+- A countdown timer, timer buttons, workout instructions, and next workout name is displayed.
+- The time of the workouts are accurately kept.
+- Users are kept informed about what they are meant to do, and when to change workouts,
 
-Words words words words.  Words words words.
+### Record keeping
+- On the home page, there is a recent HIITs section that shows users their six most recently performed HIITs.
 
-Words words words words words.  Words.
+### Visual cues
+-vUsers can toggle the instructions and next workout from showing which makes the timer bigger. 
+- Users screen colours change upon the transition of a workout so they can see it is time to do the next activity. 
 
-### Final Key Feature Name/Description.
-Words.
+### Persistent Workout Data Storage
+-cUsers can access their custom workouts anywhere and anytime from any device with an internet connection. 
 
+## Installation
+These are the basic steps that you have to follow to run the application.
+1. Install NPM packages
+   ```sh
+   npm install
+   ```
+2. Start the Application 
+    ```sh
+    npm run start
+    ```
+3. Click the link to go to the application
+    https://localhost:8080
+
+
+## Design and Usability
+
+### Clean UI
+The app has a clean, minimalistic UI to help users focus on the core functionality.
+
+### Responsive
+Designed for optimal viewing across devices - desktop, tablet, and mobile.
+
+### Easy Navigation
+Intuitive bottom navigation bar with labeled buttons for quick access to different sections.
+
+### Familiar Patterns
+Uses common UI elements and patterns for a smooth learning curve.
+
+### Visual Hierarchy
+Clear distinction between sections, content types, and interactive elements through typography, spacing, and color.
+
+### Accessibility
+Follows accessibility best practices, including proper contrast, alt text, and keyboard navigation.
+
+### User Feedback
+Provides clear success/error messages, loading indicators, and progress bars.
+The aim is to offer an enjoyable and efficient experience for creating and managing HIITs.
+
+## Future Work
+- While our app currently offers a robust set of features designed to elevate your fitness experience, there's always room for improvement and expansion. One area we're committed to enhancing in future iterations is user verification. Although we couldn't finalize its implementation in this version, rest assured that our database infrastructure is primed and ready to seamlessly integrate advanced user verification protocols when the time comes. By prioritizing security and user privacy, we aim to provide peace of mind while ensuring a smooth and secure user experience. 
+
+- We plan to implement the sharing of workouts between users so they can participate in the exact same workouts as their friends. 
+
+- We also frequently update our servers with new HIITs and workouts to choose from and explore.
 
 ## AI
-REMOVE ME: Detail your use of AI, listing of the prompts you used, and whether the results formed or inspired part of your final submission and where we can see this (and if not, why not?). You may wish to group prompts into headings/sections - use markdown in any way that it helps you communicate your use of AI. 
 
-### Prompts to develop XYZ (exmaple)
+### CSS Styling
 A sequence of prompts helped me develop this feature:
 
->  this is an example prompt given to a chatbot
-The response was proved useless because the prompt wasn't specific enough about XYZ, so:
+>  Prompt that was sent to chat bot
+Change the styling of my app to used some shades of green.
 
->  this is an example prompt given to a chatbot detailing XYZ
-The response was better so I could speifically ask about QRST
 
->  how can I integrate QRST here?
-The suggestion worked with minor modification.
+### Modularisation
+For the modularisation of my code, i requested the chat bot to give an example module of how i can structure my code
 
-### Prompts to develop GHIJ (exmaple)
-For the GHIJ feature I ...
+>  Prompt that was sent to chat bot
+Give me the structure to modularise my code.
 
->  this is an example prompt given to a chatbot
-words words words etc.
+### Database Mock Data population 
+The prompt sent to the chat bot.
+
+> Make me a table called workouts with an id, name, description and instructions field and fill it with dummy data.
+
+### Timer Bugs
+
+> Please help me fix my timer and make it show the details of the next workout.
+
+### README
+
+> Please help generate the design section of the read me based on my css code.
+
+### Acknowledgements
+For the one page design - Matt Dennis (simple-one-page) https://github.com/portsoc/simple-one-page
+
+ChatGPT
+OpenAI. (2023). GPT-4 Technical Report. ArXiv:2303.08774 [Cs]. https://arxiv.org/abs/2303.08774
