@@ -94,6 +94,15 @@ Follows accessibility best practices, including proper contrast, alt text, and k
 Provides clear success/error messages, loading indicators, and progress bars.
 The aim is to offer an enjoyable and efficient experience for creating and managing HIITs.
 
+## Improvements from last prototype
+### What changed
+- I updated my html page and css to give my users a better visual and usable experience.
+- I added routing and navigations to make my app a single page app.
+- I modularised my code to make it more functional and easier to read.
+- I added pause and restart buttons to my timer.
+- I fixed bugs relating to the accessing of my HIITs and workouts.
+- I added a history section to show the past HIITs of my users.
+
 ## Future Work
 - While our app currently offers a robust set of features designed to elevate your fitness experience, there's always room for improvement and expansion. One area we're committed to enhancing in future iterations is user verification. Although we couldn't finalize its implementation in this version, rest assured that our database infrastructure is primed and ready to seamlessly integrate advanced user verification protocols when the time comes. By prioritizing security and user privacy, we aim to provide peace of mind while ensuring a smooth and secure user experience. 
 
