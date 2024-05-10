@@ -15,22 +15,32 @@ With a focus on simplicity and effectiveness, my goal is to provide users with t
 - Repeat this till you are done with customising your HIIT.
 - Start your HIIT!
 
+-Reasoning: By streamlining the creation process with clear instructions and intuitive controls, we ensure that users of all skill levels can easily customize their workouts to fit their preferences and goals. This design approach prioritizes user empowerment and flexibility, allowing individuals to take ownership of their fitness journey with confidence.
+
 ### Starting your workouts
 - Click on the start HIIT button.
 - Users are taken to the active-workout page.
 - A countdown timer, timer buttons, workout instructions, and next workout name is displayed.
 - The time of the workouts are accurately kept.
-- Users are kept informed about what they are meant to do, and when to change workouts,
+- Users are kept informed about what they are meant to do, and when to change workouts.
+
+- Reasoning: We designed this feature to provide users with a seamless transition from planning to action. By presenting relevant workout details prominently and ensuring accurate timing, we aim to keep users focused and motivated throughout their workout sessions. Clear communication and intuitive layout enhance user engagement and overall satisfaction.
+
 
 ### Record keeping
 - On the home page, there is a recent HIITs section that shows users their six most recently performed HIITs.
 
+- Reasoning: We incorporated this feature to facilitate easy access to users' workout history, fostering a sense of progress and accountability. 
+
 ### Visual cues
 - Users can toggle the instructions and next workout from showing which makes the timer bigger. 
-- Users screen colours change upon the transition of a workout so they can see it is time to do the next activity. 
+
+- Reasoning: We included this feature to accommodate different user preferences and workout environments. By providing the flexibility to customize the display based on individual needs, we empower users to optimize their workout experience for maximum efficiency and enjoyment. This design approach promotes user-centricity and enhances overall usability.
 
 ### Persistent Workout Data Storage
 - Users can access their custom workouts anywhere and anytime from any device with an internet connection. 
+
+- Reasoning: We included this feature to accommodate different user preferences and workout environments. By providing the flexibility to customize the display based on individual needs, we empower users to optimize their workout experience for maximum efficiency and enjoyment. This design approach promotes user-centricity and enhances overall usability.
 
 ## Installation
 These are the basic steps that you have to follow to run the application.
@@ -135,7 +145,7 @@ The prompt sent to the chat bot.
 
 ### README
 
-> Please help generate the design section of the read me based on my css code.
+> Please help generate the design and reasoning section of the read me based on my css code.
 
 ### Acknowledgements
 For the one page design - Matt Dennis (simple-one-page) https://github.com/portsoc/simple-one-page

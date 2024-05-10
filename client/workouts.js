@@ -52,7 +52,6 @@ async function getHIITs() {
     const hiits = await response.json();
     // Do something with the HIITs data, such as displaying them on the UI
     console.log('HIITs:', hiits);
-    localStorage.setItem('hiits', JSON.stringify(hiits));
     renderHIITs(hiits);
   } catch (error) {
     console.error('Error fetching HIITs:', error);
@@ -100,11 +99,11 @@ function renderHIITs(hiits) {
 
     const hiitName = document.createElement('h3');
     hiitName.textContent = hiit.name;
-    hiitCard.appendChild(hiitName);
+    hiitCard.append(hiitName);
 
     const hiitDescription = document.createElement('p');
     hiitDescription.textContent = hiit.description;
-    hiitCard.appendChild(hiitDescription);
+    hiitCard.append(hiitDescription);
 
     // Add click event listener to open the HIIT details
     hiitCard.addEventListener('click', () => {
@@ -115,11 +114,11 @@ function renderHIITs(hiits) {
     // Check if the HIIT is customisable
     if (hiit.customisable === 1) {
       // If customisable, render in the bookmarks container
-      bookmarksContainer.appendChild(hiitCard);
+      bookmarksContainer.append(hiitCard);
       addDeleteButtons(hiitCard, hiit.id, hiit.name);
     } else {
       // If not customisable, render in the home container
-      hiitsContainer.appendChild(hiitCard);
+      hiitsContainer.append(hiitCard);
     }
   });
 }
@@ -138,7 +137,7 @@ async function addDeleteButtons(hiitCard, hiitId, hiitName) {
       deleteHIIT(hiitId);
       console.log('Delete HIIT:', hiitId, hiitName);
     });
-    hiitCard.appendChild(deleteButton);
+    hiitCard.append(deleteButton);
   }
 }
 
@@ -190,22 +189,22 @@ function renderWorkouts(workouts, isCustomisable, hiitId, hiitName) {
 
     const workoutName = document.createElement('h4');
     workoutName.textContent = workout.name;
-    workoutItem.appendChild(workoutName);
+    workoutItem.append(workoutName);
 
     const workoutDescription = document.createElement('p');
     workoutDescription.textContent = workout.description;
-    workoutItem.appendChild(workoutDescription);
+    workoutItem.append(workoutDescription);
 
     const workoutDuration = document.createElement('p');
     workoutDuration.textContent = `Duration: ${workout.duration} seconds`;
-    workoutItem.appendChild(workoutDuration);
+    workoutItem.append(workoutDuration);
 
     if (isCustomisable) {
       // Add edit and delete buttons for customisable HIITs
       addWorkoutDeleteButtons(workoutItem, hiitId, workout.id, hiitName);
     }
 
-    hiitDisplay.appendChild(workoutItem); // Append workout item directly to body
+    hiitDisplay.append(workoutItem); // Append workout item directly to body
   });
 }
 
@@ -214,7 +213,7 @@ function addWorkoutDeleteButtons(workoutItem, hiitId, workoutId, hiitName) {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Delete';
   deleteButton.classList.add('delete-btn');
-  workoutItem.appendChild(deleteButton);
+  workoutItem.append(deleteButton);
   deleteButton.addEventListener('click', () => {
     deleteWorkoutInHiit(hiitId, workoutId);
     openHIIT(hiitId, hiitName);
@@ -237,7 +236,7 @@ async function openHIIT(hiitId, hiitName) {
     // Display the HIIT name as a title
     const hiitTitle = document.createElement('h2');
     hiitTitle.textContent = hiitName;
-    hiitDetailsContainer.appendChild(hiitTitle);
+    hiitDetailsContainer.append(hiitTitle);
 
     // Making the start HIIT Button
     const startHIITButton = document.createElement('button');
@@ -247,8 +246,8 @@ async function openHIIT(hiitId, hiitName) {
       startTimer(workouts);
       showScreen('active-workout');
     });
-    hiitDetailsContainer.appendChild(startHIITButton);
-    hiitDisplay.appendChild(hiitDetailsContainer);
+    hiitDetailsContainer.append(startHIITButton);
+    hiitDisplay.append(hiitDetailsContainer);
 
     // Fetch workouts for the selected HIIT
     const workouts = await fetchWorkoutsInHIIT(hiitId);
@@ -317,9 +316,8 @@ function startTimer(workouts) {
   const instructionDisplay = document.querySelector('#instructionDisplay');
   const workoutNameDisplay = document.querySelector('#workoutNameDisplay');
   const nextWorkoutDisplay = document.querySelector('#nextWorkoutDisplay');
-
   const instructionsList = document.createElement('ul');
-  instructionDisplay.appendChild(instructionsList);
+  instructionDisplay.append(instructionsList);
 
   // Create the Pause and Restart buttons
   const buttonContainer = document.createElement('div');
@@ -328,12 +326,12 @@ function startTimer(workouts) {
   const pauseButton = document.createElement('button');
   pauseButton.textContent = 'Pause';
   pauseButton.id = 'pauseTimer';
-  buttonContainer.appendChild(pauseButton);
+  buttonContainer.append(pauseButton);
 
   const restartButton = document.createElement('button');
   restartButton.textContent = 'Restart';
   restartButton.id = 'restartTimer';
-  buttonContainer.appendChild(restartButton);
+  buttonContainer.append(restartButton);
 
   timerButtonsDisplay.append(buttonContainer);
 
@@ -446,7 +444,7 @@ function updateInstructions(instructions, instructionsList) {
     if (line.trim() !== '') {
       const listItem = document.createElement('li');
       listItem.textContent = line.trim();
-      instructionsList.appendChild(listItem);
+      instructionsList.append(listItem);
     }
   });
 }
@@ -509,11 +507,11 @@ function displaySearchedWorkouts(filteredWorkouts, hiitId, hiitName) {
 
     const workoutName = document.createElement('p');
     workoutName.textContent = `Name: ${workout.name}`;
-    workoutItem.appendChild(workoutName);
+    workoutItem.append(workoutName);
 
     const workoutDescription = document.createElement('p');
     workoutDescription.textContent = `Description: ${workout.description}`;
-    workoutItem.appendChild(workoutDescription);
+    workoutItem.append(workoutDescription);
 
     const durationLabel = document.createElement('label');
     durationLabel.setAttribute('for', `duration${workout.id}`);
@@ -523,17 +521,18 @@ function displaySearchedWorkouts(filteredWorkouts, hiitId, hiitName) {
     durationInput.setAttribute('type', 'text');
     durationInput.setAttribute('id', `duration${workout.id}`);
     durationInput.setAttribute('placeholder', 'Enter duration in seconds');
+    durationInput.classList.add('duration-input');
 
-    workoutItem.appendChild(durationLabel);
-    workoutItem.appendChild(durationInput);
+    workoutItem.append(durationLabel);
+    workoutItem.append(durationInput);
 
     const addToHiitButton = document.createElement('button');
     addToHiitButton.classList.add('add-to-hiit-button');
     addToHiitButton.textContent = 'Add to HIIT';
     addToHiitButton.addEventListener('click', () => addToHiit(workout, hiitId, hiitName));
-    workoutItem.appendChild(addToHiitButton);
+    workoutItem.append(addToHiitButton);
 
-    searchedWorkoutsContainer.appendChild(workoutItem);
+    searchedWorkoutsContainer.append(workoutItem);
   });
 }
 
@@ -556,18 +555,18 @@ function displayRecentHiits() {
 
     const cardTitle = document.createElement('h3');
     cardTitle.textContent = hiit.name;
-    section.appendChild(cardTitle);
+    section.append(cardTitle);
 
     const cardDescription = document.createElement('p');
     cardDescription.textContent = hiit.description;
-    section.appendChild(cardDescription);
+    section.append(cardDescription);
 
     section.addEventListener('click', () => {
       openHIIT(hiit.id, hiit.name);
       showScreen('hiit');
     });
 
-    recentHiitsContainer.appendChild(section);
+    recentHiitsContainer.append(section);
   });
 }
 
